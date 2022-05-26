@@ -10,6 +10,7 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
+  secret: process.env.NEXT_PUBLIC_SECRET,
   // theme: {
   //   // Customize the look and feel of NextAuth
   //   logo: "/logo.svg",
