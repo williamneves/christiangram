@@ -3,7 +3,7 @@ import {
 	SearchIcon,
 	MenuIcon,
 } from '@heroicons/react/outline';
-// import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { modalState } from '../atoms/modalAtom';
 import { useRecoilState } from 'recoil';
