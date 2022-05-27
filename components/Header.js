@@ -1,19 +1,13 @@
-import Image from 'next/dist/client/image';
+// import Image from 'next/dist/client/image';
 import {
 	SearchIcon,
-	PlusCircleIcon,
-	UserGroupIcon,
-	HeartIcon,
-	PaperAirplaneIcon,
 	MenuIcon,
 } from '@heroicons/react/outline';
-import { HomeIcon } from '@heroicons/react/solid';
-import { useSession, signIn, signOut } from 'next-auth/react';
+// import { useSession, signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { modalState } from '../atoms/modalAtom';
 import { useRecoilState } from 'recoil';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { BiBible, BiMessageSquareDetail, BiEdit } from 'react-icons/bi';
+import { BiBible, BiEdit } from 'react-icons/bi';
 import{TiMessages} from 'react-icons/ti';
 import {FaChurch} from 'react-icons/fa';
 
