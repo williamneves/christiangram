@@ -5,7 +5,7 @@ import Post from './Post';
 
 const Posts = () => {
 	const [posts, setPosts] = useState([]);
-	const [ pagination, setPagination ] = useState( 10 );
+	const [ pagination, setPagination ] = useState( 8 );
 	const [totalPosts, setTotalPosts] = useState(0);
 	const [scrollTop, setScrollTop] = useState(0);
 
@@ -33,7 +33,7 @@ const Posts = () => {
 	useEffect(() => {
 		const onScroll = function () {
 			if ( window.innerHeight + window.scrollY >= document.body.offsetHeight && pagination <= totalPosts ) {
-				setPagination(pagination + 5)
+				setPagination(pagination + 3)
 				console.log("you're at the bottom of the page");
 			}
 		};

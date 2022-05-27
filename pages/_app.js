@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import "@fontsource/pt-sans"
 // import 'tailwindcss/tailwind.css'
 import { SessionProvider } from 'next-auth/react';
 import { RecoilRoot } from 'recoil';

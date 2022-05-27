@@ -56,7 +56,7 @@ export default function CreateAccount() {
 			</Head>
 
 			{
-        loading ? (<SpinnerDotted enabled={loading} />) :
+        loading ? (<SpinnerDotted enabled={loading} color="rgba(172, 131, 57, 1)" />) :
         ( <section className='max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800'>
 				<h1 className='text-xl font-bold text-white capitalize dark:text-white'>
 					Account settings

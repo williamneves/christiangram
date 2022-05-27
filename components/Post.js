@@ -83,9 +83,7 @@ const Post = ( { id, username, userImg, img, caption } ) => {
 	};
 
 	const handleLoad = () => {
-		setTimeout(() => (
 			setLoading( false )
-		),1000)
 	}
 
 	// Render page
@@ -105,14 +103,14 @@ const Post = ( { id, username, userImg, img, caption } ) => {
 							src={ userImg }
 							alt=''
 							className='rounded-full h-12 w-12 object-contain border p-1 mr-3'
-							onLoad={handleLoad}
+							
 						/>
 						<p className='flex-1 font-bold '>{ username }</p>
 						<DotsHorizontalIcon className='h-5 cursor-pointer' />
 					</div>
 
 					{/* img */ }
-					<img src={ img } alt='' className='w-full border-y object-cover' />
+					<img src={ img } alt='' onLoad={handleLoad} className='w-full border-y object-cover' />
 
 					{/* Buttons */ }
 					<div className='flex justify-between px-4 pt-4'>
@@ -137,14 +135,17 @@ const Post = ( { id, username, userImg, img, caption } ) => {
 								</p>
 							)
 						}
-						<p className='text-sm text-gray-600 p-4 truncate'>
-							<span className='font-bold mr-1'>{ username }</span> { caption }
-						</p>
+						<div className='flex px-5'>
+						<p className='font-bold mr-2 -mt-1 py-2'>{ username }</p>
+							<p className='text-sm text-gray-600 py-2 px-2 truncate-captions'>
+								 { caption }
+							</p>
+						</div>
 					</div>
 
 					{/* Comments */ }
 					{ session && comments.length > 0 && (
-						<div className='pl-10 h-21 pt-3 bg-gray-50 overflow-y-scroll scrollbar-thumb-black scrollbar-thin'>
+						<div className='pl-10 max-h-[120px] pt-3 bg-gray-50 overflow-y-scroll  scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-slate-300'>
 							{ comments.map( ( comment ) => (
 								<div key={ comment.id } className='flex items-center space-x-2 mb-3'>
 									<img className='rounded-full h-7' src={ comment.data().userImage } alt='' />
