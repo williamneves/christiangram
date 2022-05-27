@@ -2,12 +2,16 @@ import { useEffect, useState } from 'react';
 import { randUser } from '@ngneat/falso';
 import Story from './Story';
 import { useSession } from 'next-auth/react';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
+import { userDbState } from '../atoms/userDbAtom';
+import { useRecoilState } from 'recoil';
+
 
 export default function Stories({}) {
 	const [suggestions, setSuggestions] = useState([]);
 	const [ count, setCount ] = useState( 0 );
 	const router = useRouter();
+	const [userDb, setUserDb] = useRecoilState(userDbState);
 
 	const { data: session } = useSession();
 
@@ -24,7 +28,7 @@ export default function Stories({}) {
 
 	return (
 		<div className='storiesAvatar h-22 scrollbar-thin scrollbar-thumb-yellow-600 scrollbar-track-yellow-100 overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full'>
-			{session && <Story img={session?.user?.image} username={session?.user?.username} />}
+			{userDb && <Story img={userDb?.image} username={userDb?.username} />}
 			{suggestions.map((profile, i) => (
 				<Story key={i} img={profile.img} username={profile.username} />
 			))}

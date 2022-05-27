@@ -7,6 +7,7 @@ const Posts = () => {
 	const [posts, setPosts] = useState([]);
 	const [ pagination, setPagination ] = useState( 10 );
 	const [totalPosts, setTotalPosts] = useState(0);
+	const [scrollTop, setScrollTop] = useState(0);
 
 	useEffect(
 		() =>
@@ -33,12 +34,21 @@ const Posts = () => {
 		const onScroll = function () {
 			if ( window.innerHeight + window.scrollY >= document.body.offsetHeight && pagination <= totalPosts ) {
 				setPagination(pagination + 5)
-				// console.log("you're at the bottom of the page");
+				console.log("you're at the bottom of the page");
 			}
 		};
 		window.addEventListener('scroll', onScroll);
 		return () => window.removeEventListener('scroll', onScroll);
-	}, [pagination]);
+	}, [ scrollTop ] );
+	
+	const onScroll = (e) => {
+    setScrollTop(e.target.documentElement.scrollTop);
+    // setScrolling(e.target.documentElement.scrollTop > scrollTop);
+	}
+	useEffect(() => {
+    window.addEventListener('scroll', onScroll);
+  },[]);
+
 
 	return (
 		<div>

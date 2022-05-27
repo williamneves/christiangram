@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { CameraIcon } from '@heroicons/react/outline';
+import { CameraIcon, CloudUploadIcon } from '@heroicons/react/outline';
 import { modalState } from '../atoms/modalAtom';
 import { useRecoilState } from 'recoil';
 import { Fragment, useRef, useState } from 'react';
@@ -7,6 +7,7 @@ import { collection, addDoc, serverTimestamp, updateDoc, doc, getDoc } from 'fir
 import { db, storage } from '../firebase';
 import { useSession } from 'next-auth/react';
 import { ref, getDownloadURL, uploadString } from '@firebase/storage';
+import { SpinnerRoundFilled } from 'spinners-react';
 
 function Modal() {
 	const [open, setOpen] = useRecoilState(modalState);
@@ -17,40 +18,38 @@ function Modal() {
 	const [loading, setLoading] = useState(false);
 	const { data: session } = useSession();
 
-  const uploadPost = async () => {
-    if ( loading ) return;
-    setLoading( true );
+	const uploadPost = async () => {
+		if (loading) return;
+		setLoading(true);
 
-    // 1 - Create a post in firestore db 'posts' collection
-    // 2 - get the post ID for the newly created post
-    // 3 - upload the image to firebase storage with the post ID as the file name
-    // 4 - get the download URL for the image and update the original post
+		// 1 - Create a post in firestore db 'posts' collection
+		// 2 - get the post ID for the newly created post
+		// 3 - upload the image to firebase storage with the post ID as the file name
+		// 4 - get the download URL for the image and update the original post
 
-		const userRef = await getDoc( doc( db, 'user', session?.user?.uid ) );
+		const userRef = await getDoc(doc(db, 'user', session?.user?.uid));
 
-    const docRef = await addDoc( collection( db, 'posts' ), {
-      username: userRef.data().username,
-      caption: captionRef.current.value,
-      profileImg: userRef.data().image,
-      timestamp: serverTimestamp(),
-    } );
+		const docRef = await addDoc(collection(db, 'posts'), {
+			username: userRef.data().username,
+			caption: captionRef.current.value,
+			profileImg: userRef.data().image,
+			timestamp: serverTimestamp(),
+		});
 
-    console.log( 'New doc add with ID: ', docRef.id );
+		console.log('New doc add with ID: ', docRef.id);
 
-    const imageRef = ref( storage, `post/${docRef.id}/image` );
-    
-    await uploadString( imageRef, selectedFile, "data_url" ).then(
-      async ( snapshot ) => {
-        const downloadURL = await getDownloadURL( imageRef );
-        await updateDoc( doc( db, "posts", docRef.id ), {
-          image: downloadURL,
-        } );
-      }
-    );
-    setOpen(false);
-    setLoading(false);
-    setSelectedFile( null );
-  }
+		const imageRef = ref(storage, `post/${docRef.id}/image`);
+
+		await uploadString(imageRef, selectedFile, 'data_url').then(async (snapshot) => {
+			const downloadURL = await getDownloadURL(imageRef);
+			await updateDoc(doc(db, 'posts', docRef.id), {
+				image: downloadURL,
+			});
+		});
+		setOpen(false);
+		setLoading(false);
+		setSelectedFile(null);
+	};
 
 	const addImageToPost = (e) => {
 		const reader = new FileReader();
@@ -130,12 +129,21 @@ function Modal() {
 										</div>
 									</div>
 									<div className='mt-5 sm:mt-6'>
-                    <button
-                      onClick={uploadPost}
+										<button
+											onClick={uploadPost}
 											type='button'
 											disabled={!selectedFile}
 											className='inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm disabled:bg-gray-300 disabled:cursor-not-allowed hover:disabled:bg-gray-300'>
-											{loading ? 'Uploading...' : 'Upload Post'}
+											{loading ? (
+												<>
+													<SpinnerRoundFilled size={20} thickness={'160'} color="rgba(255, 255, 255, 1)" speed={'115'} className='mr-3 self-center' /> Uploading...
+												</>
+											) : (
+												<>
+												<CloudUploadIcon className='h-5 w-5 self-middle mr-3' aria-hidden='true' />
+												 Upload Post
+												</>
+											)}
 										</button>
 									</div>
 								</div>
