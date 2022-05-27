@@ -3,7 +3,7 @@ import { CameraIcon } from '@heroicons/react/outline';
 import { modalState } from '../atoms/modalAtom';
 import { useRecoilState } from 'recoil';
 import { Fragment, useRef, useState } from 'react';
-import { collection, addDoc, serverTimestamp, updateDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, updateDoc, doc, getDoc } from 'firebase/firestore';
 import { db, storage } from '../firebase';
 import { useSession } from 'next-auth/react';
 import { ref, getDownloadURL, uploadString } from '@firebase/storage';
@@ -26,10 +26,12 @@ function Modal() {
     // 3 - upload the image to firebase storage with the post ID as the file name
     // 4 - get the download URL for the image and update the original post
 
+		const userRef = await getDoc( doc( db, 'user', session?.user?.uid ) );
+
     const docRef = await addDoc( collection( db, 'posts' ), {
-      username: session.user.username,
+      username: userRef.data().username,
       caption: captionRef.current.value,
-      profileImg: session.user.image,
+      profileImg: userRef.data().image,
       timestamp: serverTimestamp(),
     } );
 

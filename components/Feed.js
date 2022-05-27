@@ -20,8 +20,8 @@ export default function Feed({ }) {
 
       {/* Section */ }
       { session && (
-        <section className="hidden xl:inline-grid md:col-span-1">
-        <div className="fixed">
+        <section className="hidden xl:inline-grid md:col-span-1 ">
+        <div className="sticky top-0">
           {/* Mini Profile */ }
           <MiniProfile />
           {/* Suggestions */ }

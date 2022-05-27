@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
 	BookmarkIcon,
 	ChatIcon,
@@ -25,13 +25,16 @@ import {
 import { db, storage } from '../firebase';
 import Moment from 'react-moment';
 import 'moment-timezone';
+import { RiHeart2Fill, RiHeart2Line } from 'react-icons/ri'
+import { BiMessageSquareDetail,BiEdit } from 'react-icons/bi';
 
 const Post = ({ id, username, userImg, img, caption }) => {
 	const { data: session } = useSession();
 	const [comments, setComments] = useState([]);
 	const [comment, setComment] = useState('');
 	const [likes, setLikes] = useState([]);
-	const [hasLiked, setHasLiked] = useState(false);
+	const [ hasLiked, setHasLiked ] = useState( false );
+	const postCommentRef = useRef(null);
 
 	const sendComment = async (e) => {
 		e.preventDefault();
@@ -75,6 +78,10 @@ const Post = ({ id, username, userImg, img, caption }) => {
 		}
 	};
 
+	const focusComment = () => {
+		postCommentRef.current.focus();
+	};
+
 	// Render page
 	return (
 		<div className='bg-white my-7 border rounded-sm'>
@@ -96,14 +103,14 @@ const Post = ({ id, username, userImg, img, caption }) => {
 			<div className='flex justify-between px-4 pt-4'>
 				<div className='flex space-x-4'>
 					{hasLiked ? (
-						<HeartIconSolid className='btn text-red-600' onClick={likePost} />
+						<RiHeart2Fill className='btn text-red-600' onClick={likePost} />
 					) : (
-						<HeartIcon onClick={likePost} className='btn' />
+						<RiHeart2Line onClick={likePost} className='btn ' />
 					)}
-					<ChatIcon className='btn' />
-					<PaperAirplaneIcon className='btn' />
+					<BiMessageSquareDetail className='btn' onClick={focusComment} />
+					{/* <PaperAirplaneIcon className='btn' /> */}
 				</div>
-				<BookmarkIcon className='btn' />
+				{/* <BookmarkIcon className='btn' /> */}
 			</div>
 
 			{/* Caption */}
@@ -148,6 +155,7 @@ const Post = ({ id, username, userImg, img, caption }) => {
 						type='text'
 						className='border-none flex-1 focus:ring-0 outline-none'
 						placeholder='Leave a comment...'
+						ref={postCommentRef}
 					/>
 					<button
 						type='submit'

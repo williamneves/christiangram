@@ -13,4 +13,7 @@ module.exports = {
 		require('tailwind-scrollbar'),
 		require('tailwind-scrollbar-hide'),
 	],
+	variants: {
+		scrollbar: ['rounded']
+},
 };

@@ -18,6 +18,7 @@
   .btn {
     @apply 
     h-7
+    w-7
     hover:scale-125
     cursor-pointer
     transition-all
@@ -36,6 +37,9 @@
     rounded-sm 
     overflow-x-scroll 
     scrollbar-thin 
-    scrollbar-thumb-black
+    /* scrollbar-thumb-black */
+  }
+  .inputCreateUser{
+    @apply block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-yellow-500 dark:focus:border-yellow-500 focus:outline-none focus:ring
   }
 }

@@ -9,9 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/pro-duotone-svg-icons": "^6.1.1",
+    "@fortawesome/pro-light-svg-icons": "^6.1.1",
+    "@fortawesome/pro-regular-svg-icons": "^6.1.1",
+    "@fortawesome/pro-solid-svg-icons": "^6.1.1",
+    "@fortawesome/pro-thin-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@headlessui/react": "^1.6.3",
     "@heroicons/react": "^1.0.6",
     "@ngneat/falso": "^5.3.0",
+    "babel-plugin-macros": "^3.1.0",
     "firebase": "^9.8.1",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
@@ -19,6 +27,8 @@
     "next-auth": "^4.3.4",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "react-firebase-hooks": "^5.0.3",
+    "react-icons": "^4.3.1",
     "react-moment": "^1.1.2",
     "recoil": "^0.7.3-alpha.2",
     "tailwind-scrollbar-hide": "^1.1.7"

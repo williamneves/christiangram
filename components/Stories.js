@@ -23,7 +23,7 @@ export default function Stories({}) {
 	}, []);
 
 	return (
-		<div className='storiesAvatar'>
+		<div className='storiesAvatar h-22 scrollbar-thin scrollbar-thumb-yellow-600 scrollbar-track-yellow-100 overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full'>
 			{session && <Story img={session?.user?.image} username={session?.user?.username} />}
 			{suggestions.map((profile, i) => (
 				<Story key={i} img={profile.img} username={profile.username} />

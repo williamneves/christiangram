@@ -10,11 +10,12 @@ function signIn({providers}) {
     <>
       <Header />
       <div className='flex flex-col items-center justify-center min-h-screen py-2 -mt-56 mx-14 text-center'>
-        <img
-          className='w-80'
-          src="https://links.papareact.com/ocw" alt="" />
-        <p className='font-xs italic'>
+        <h3 className='text-4xl font-bold mb-3'>Christiangram</h3>
+        <p className='text-sm italic'>
           This is not a <b>REAL</b> app, it's just a mockup for the demo my developer skills and portfolio.
+        </p>
+        <p className='text-sm italic'>
+          Not all functions and buttons works, and maybe some bugs can happens.
         </p>
 
         <div className="mt-40">
@@ -23,7 +24,7 @@ function signIn({providers}) {
               <div key={ provider.name }>
                 <button
                   className='p-3 bg-blue-500 rounded-lg text-white'
-                  onClick={ () => signInProvider( provider.id, {callbackUrl: '/'} ) }>
+                  onClick={ () => signInProvider( provider.id, {callbackUrl: '/account/create'} ) }>
                   Sign in with { provider.name }
                 </button>
               </div>

@@ -4,8 +4,13 @@ import styles from '../styles/Home.module.css'
 import Header from '../components/Header'
 import Feed from '../components/Feed'
 import Modal from '../components/Modal'
+import { useUserData } from '../lib/hooks';
+
 
 export default function Home() {
+
+  // const userData = useUserData();
+
   return (
     <div className="bg-gray-100">
     <Head>
