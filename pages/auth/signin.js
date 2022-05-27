@@ -4,7 +4,12 @@ import Header from '../../components/Header';
 
 
 // Browser
-function signIn({providers}) {
+function signIn( { providers } ) {
+  
+  const handleSignIn = async ( provider ) => {
+    signInProvider( provider.id, {callbackUrl: '/auth/new-user'} )
+  }
+
   return (
     
     <>
@@ -24,7 +29,7 @@ function signIn({providers}) {
               <div key={ provider.name }>
                 <button
                   className='p-3 bg-blue-500 rounded-lg text-white'
-                  onClick={ () => signInProvider( provider.id, {callbackUrl: '/account/create'} ) }>
+                  onClick={ () => handleSignIn( provider) }>
                   Sign in with { provider.name }
                 </button>
               </div>

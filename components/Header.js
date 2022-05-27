@@ -16,7 +16,7 @@ export default function Header({}) {
 	const router = useRouter();
 	const [open, setOpen] = useRecoilState(modalState);
 
-	console.log(session);
+	// console.log(session);
 
 	return (
 		<>

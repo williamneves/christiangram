@@ -1,13 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import {
-	BookmarkIcon,
-	ChatIcon,
 	DotsHorizontalIcon,
 	EmojiHappyIcon,
-	HeartIcon,
-	PaperAirplaneIcon,
 } from '@heroicons/react/outline';
-import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import { useSession } from 'next-auth/react';
 import {
 	collection,
@@ -27,9 +22,12 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import { RiHeart2Fill, RiHeart2Line } from 'react-icons/ri'
 import { BiMessageSquareDetail,BiEdit } from 'react-icons/bi';
+import { userDbState, loadingUserState } from '../atoms/userDbAtom';
+import { useRecoilState } from 'recoil';
 
 const Post = ({ id, username, userImg, img, caption }) => {
 	const { data: session } = useSession();
+	const [userDb, setUserDb] = useRecoilState(userDbState);
 	const [comments, setComments] = useState([]);
 	const [comment, setComment] = useState('');
 	const [likes, setLikes] = useState([]);
@@ -43,8 +41,8 @@ const Post = ({ id, username, userImg, img, caption }) => {
 
 		await addDoc(collection(db, 'posts', id, 'comments'), {
 			comment: commentToSent,
-			username: session.user.username,
-			userImage: session.user.image,
+			username: userDb?.username,
+			userImage: userDb?.image,
 			timestamp: serverTimestamp(),
 		});
 	};
@@ -73,7 +71,7 @@ const Post = ({ id, username, userImg, img, caption }) => {
 			await deleteDoc(doc(db, 'posts', id, 'likes', session.user.uid));
 		} else {
 			await setDoc(doc(db, 'posts', id, 'likes', session.user.uid), {
-				username: session.user.username,
+				username: userDb?.username,
 			});
 		}
 	};
